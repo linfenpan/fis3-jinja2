@@ -7,9 +7,8 @@ require('../../index')(fis, {
   jinja2: '/run.py'
 });
 
-fis.match('/htdocs/(*.{js,css,less})', {
-  useHash: true,
-  realse: '/$1'
+fis.match('/htdocs/**/(*.{js,css,less})', {
+  useHash: true
 });
 
 console.log(fis.project.currentMedia());
