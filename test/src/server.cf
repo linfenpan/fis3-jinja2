@@ -1,0 +1,9 @@
+# 注释
+GET / /index.html /test/data/index.js
+GET /index2 /index.html /test/data/index.js
+
+# json 数据
+JSON /data.json /test/data/data.js
+
+# 文件读取
+FILE /test.fs /test/data/test.txt

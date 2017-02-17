@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>{{TopicName | default("云游道人现身！买买买！")}}</title>
+  <link rel="stylesheet" href="{{TopicResUrl}}/css/reset.css">
+  <link rel="stylesheet" href="{{TopicResUrl}}/css/index.css">
+  <script>
+    // 根据窗口大小，修正字体，480px 对应字体 48px
+    ;(function(){
+      var htmlEl = document.documentElement || document.getElementsByTagName("html")[0];
+      var maxWidth = 480, minWidth = 320;
+      var landscapeAsPortrait = true;
+
+      function resize(){
+        var rect = htmlEl.getBoundingClientRect();
+        var windowWidth = rect.width;
+        if (landscapeAsPortrait && window.innerWidth > window.innerHeight) {
+            // @notice ios上的uc浏览器，旋屏后，宽度、高度，并不会改变诶..
+            var sWidth = Math.max(screen.availWidth, screen.availHeight);
+            var sHeight = Math.min(screen.availWidth, screen.availHeight);
+            windowWidth = windowWidth * sHeight / sWidth;
+        }
+        var winWidth = Math.max(minWidth, Math.min(maxWidth, windowWidth));
+        var fontSize = winWidth / 10;
+
+        htmlEl.style.fontSize = fontSize + "px";
+      };
+      window.addEventListener('orientationchange', resize);
+      window.addEventListener('pageshow', function(e) {
+        if (e.persisted) {
+          resize();
+        }
+      });
+      window.addEventListener('resize', resize);
+      resize();
+    })();
+  </script>
+</head>
+<body>
+
+  <h1 id="banner">云游道人现身</h1>
+  <div id="introduce">
+     凭借兜售全世界奇珍异宝而拥有超高人气的云游道人终于现身了！！少侠可在2月14日至2月28日带上金币到长寿村120.62、傲来国106，110、长安478，130（每小时随机择一场景出现）找到云游道人抢购奇珍异宝！宝贝数量有限，错过就是过错！
+  </div>
+
+  <div id="treasures">
+    <h2 class="h2 text">先来一睹今年道人带回来的宝贝吧：</h2>
+    <ul class="clearfix list treasureList">
+      <li>
+        <img src="" alt="图片" class="icon" />
+        <div class="wrap">
+          <div class="title">高级兽决</div>
+          <div class="desc">一款致力于提升召唤兽技能的培训课本，一经学习，立马见效！</div>
+        </div>
+      </li>
+      <li>
+        <img src="" alt="图片" class="icon" />
+        <div class="wrap">
+          <div class="title">法宝任务书</div>
+          <div class="desc">这是一个神奇的小册子，缺少心仪法宝的少侠可以买几本回去领法宝哦～</div>
+        </div>
+      </li>
+      <li>
+        <img src="" alt="图片" class="icon" />
+        <div class="wrap">
+          <div class="title">高级珍珠</div>
+          <div class="desc">治好了我多年的强迫症，再也不用担心修失败了怎么办～</div>
+        </div>
+      </li>
+      <li>
+        <img src="" alt="图片" class="icon" />
+        <div class="wrap">
+          <div class="title">奇妙宝石袋</div>
+          <div class="desc">可以随机产生3-7级星辉石的宝贝呦～</div>
+        </div>
+      </li>
+    </ul>
+    <div class="text">
+      所有奇珍异宝只可由金币兑换哦～少侠，听到来自钱袋的召唤了吗？！不要急，金币购买神器来助攻！
+    </div>
+  </div>
+
+  <div id="strategy">
+    <h2 class="text h2">购买攻略：</h2>
+    <ul class="clearfix list buyList">
+      <li>
+        <div class="title">1、进入金币列表点击顶部“帮我买金”</div>
+        <img src="" class="icon" alt="图片" />
+      </li>
+      <li>
+        <div class="title">2、输入购买金币数额</div>
+        <img src="" class="icon" alt="图片" />
+      </li>
+      <li>
+        <div class="title">3、确认购买数额及价格（藏宝阁将为您挑选最低价格的梦幻币哦！～）</div>
+        <img src="" class="icon" alt="图片" />
+      </li>
+    </ul>
+
+    <div class="text">
+      4、完成支付，金币到手！快去找云游道人兑换宝物吧！～
+    </div>
+  </div>
+
+  <a href="javascript:;" id="goldGate">金币传送门</a>
+  <div id="updateDialog">
+    <div class="main">
+      <div class="text">
+        少侠，更新梦幻藏宝阁app至最新版才可以使用金币购买神器哦～
+      </div>
+      <div class="opers">
+        <a href="javascript:;" class="cancelBtn">取消</a>
+        <a href="javascript:;" class="sureBtn">火速更新</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{TopicResUrl}}/js/native_call.js"></script>
+  <script>
+    var TopicId = '{{TopicId}}';
+  </script>
+  <script>
+    var $goldGate = document.querySelector('#goldGate');
+    var is_iphone = /iphone|ipad|ipod/.test(ua);
+    var dialog = {
+      $root: document.querySelector('#updateDialog'),
+      show: function(sureCallback, cancelCallback) {
+        this.bindUI();
+        addClass(this.$root, 'active');
+      },
+      hide: function() {
+        removeClass(this.$root, 'active');
+      },
+      bindUI: function() {
+        var ctx = this;
+        ctx.bindUI = function() {};
+        ctx.$root.querySelector('.cancelBtn').addEventListener('click', function() {
+          ctx.hide();
+        })
+      }
+    };
+
+    $goldGate.addEventListener('click', function() {
+      if (is_iphone) {
+        return alert('调用iphone逻辑');
+      }
+
+      var result = compareVersion('1.10.1', '1.11.1');
+      if (result == '<') {
+        return dialog.show();
+      } else {
+        return alert('调用android逻辑');
+      }
+    });
+
+    function addClass(elem, cls) {
+      if (elem.classList) {
+        elem.classList.add(cls);
+      } else {
+        elem.className += ' ' + cls;
+      }
+    }
+    function removeClass(elem, cls) {
+      if (elem.classList) {
+        elem.classList.remove(cls);
+      } else {
+        elem.className = elem.className.replace(new RegExp('\\b' + cls + '\\b'), '');
+      }
+    }
+
+    // 如果 code1 > code2 返回 >; code1 < code2 返回 <; code1 == code2 返回 =
+    function compareVersion(code1, code2, split) {
+      var dot = split || '.';
+      code1 = ('' + code1).split(dot);
+      code2 = ('' + code2).split(dot);
+      for (var i = 0, max = Math.max(code1.length, code2.length); i < max; i++) {
+        var val1 = +(code1[i] || 0),
+          val2 = +(code2[i] || 0);
+        if (val1 > val2) {
+          return '>';
+        } else if (val1 < val2) {
+          return '<';
+        }
+      }
+      return '=';
+    }
+  </script>
+</body>
+</html>

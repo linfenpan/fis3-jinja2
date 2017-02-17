@@ -1,0 +1,49 @@
+// out: ../css/index.css, compress: true, autoprefixer: true
+@baseWidth: 640;
+@baseUnit: 640/10rem;
+@marginTop: 20/@baseUnit;
+
+body {
+  width: 10rem;
+  margin: 0 auto;
+  font-size: 28/@baseUnit;
+}
+
+#banner {
+  background: #ddd;
+  height: 200/@baseUnit;
+}
+
+#introduce {
+  margin-top: @marginTop;
+}
+
+#treasures {
+  margin-top: @marginTop;
+  .treasureList {
+    li { display: flex; }
+      .icon { margin-right: 20/@baseUnit; }
+      .wrap { flex: 1; }
+  }
+}
+
+#strategy {
+  margin-top: @marginTop;
+}
+
+#updateDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,.7);
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(.8);
+  transition: opacity .3s ease, transform .3s ease, visibility .3s .5s ease;
+  &.active { visibility: visible; opacity: 1; transform: scale(1); transition: all .3s ease; }
+
+  .main { position: absolute; top: 50%; left: 50%; width: 8rem; transform: translate(-50%, -60%); border: 1px solid #ddd; padding: 10px; }
+  .opers { text-align: center; }
+}
