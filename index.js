@@ -1,8 +1,9 @@
 'use strict';
 const path = require('path');
+const server = require('./server');
 const DataBus = require('./lib/util').dataBus;
 
-function fis3Jinja2(fis, options, serverConfig) {
+module.exports = function fis3Jinja2(fis, options, serverConfig) {
   // 服务器配置
   serverConfig = Object.assign({
     open: fis.project.currentMedia() === 'dev',
@@ -77,23 +78,13 @@ function fis3Jinja2(fis, options, serverConfig) {
         if (fis.get('jinja2')) {
           DataBus.set('filepathJinja2', path.resolve(dirTarget, './' + fis.get('jinja2')));
         }
-        startServer();
+        server.start();
       }
     });
   });
 
   return {
-    loadPath: path.join(__dirname, 'node_modules'),
-    sets: sets,
-    matchRules: matchRules
-  }
+    server,
+    get(key, defaultValue) { return DataBus.get(key, defaultValue); }
+  };
 }
-
-const ctx = fis3Jinja2;
-const server = require('./server');
-
-function startServer() {
-  server.start();
-}
-
-module.exports = ctx;

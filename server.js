@@ -1,5 +1,6 @@
 'use strict';
 
+const ServerMiddleware = require('./lib/server-config-middleware');
 const express = require('express');
 const colors = require('colors');
 const reload = require('reload');
@@ -21,7 +22,8 @@ app.use(cookieParser());
 module.exports = {
   server: null,
   reloader: null,
-  middleware: null,
+  middleware: new ServerMiddleware(),
+  dataBus: DataBus,
 
   start() {
     if (!this.server) {
@@ -44,13 +46,24 @@ module.exports = {
     );
 
     // 注入自动重启的路由
-    const ServerMiddleware = require('./lib/server-config-middleware');
-    this.middleware = new ServerMiddleware();
     app.use('/', this.middleware.router);
 
+    // 404
     app.use((req, res, next) => { res.send(404, '404'); });
+
+    this.bindRouter = util.noop;
   },
 
+  addCaptureRule(type, fn) {
+    if (this.middleware) {
+      this.middleware.addCaptureRule(type, fn);
+    } else {
+      throw '路由中间键，没有初始化';
+    }
+    return this;
+  },
+
+  // 刷新页面
   reload: (function() {
     let timer;
     function reloadWeb(reloader) {
