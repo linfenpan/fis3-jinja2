@@ -17,7 +17,7 @@ const fs = require('fs-extra');
 const path = require('path');
 JJ.server.addCaptureRule('JSON', function(args) {
   const urlpath = args[0], filepath = args[1];
-  const dirData = JJ.get('dir');
+  const dirData = JJ.get('dirData');
 
   if (urlpath && filepath) {
     this.get(urlpath, (req, res, next) => {

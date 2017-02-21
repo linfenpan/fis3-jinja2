@@ -21,7 +21,7 @@ module.exports = function fis3Jinja2(fis, options, serverConfig) {
     'static': '/static',
     'template': '/template',
     'server': '/server.cf',
-    'data': '/test/data',
+    'data': '/test',
     'jinja2': ''
   }, options || {});
 
