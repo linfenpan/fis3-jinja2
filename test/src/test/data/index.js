@@ -1,6 +1,4 @@
 'use strict';
-const Mock = require('lfp-mock-web');
-const config = Mock.config;
 
 var dataItem1 = {
   'url': 'http://xyq.cbg.163.com/cgi-bin/equipquery.py?act=buy_show_by_ordersn&server_id=69&ordersn=76_1437472190_76474340',
@@ -59,7 +57,7 @@ module.exports = {
   'TopicId': '10',
   // 'TopicName': '不磨',
   'TemplateName': 'index.html',
-  'TopicResUrl': `http://10.255.204.189:${config.PORT}/static`,
+  'TopicResUrl': `http://10.255.204.189:8080/static`,
   // 网站静态资源引用
   'ResUrlVer': 'http://xyq.cbg.163.com',
   'data': [

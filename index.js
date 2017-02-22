@@ -85,6 +85,13 @@ module.exports = function fis3Jinja2(fis, options, serverConfig) {
 
   return {
     server,
+    set(key, value) {
+      const protects = ['dir', 'dirData', 'dirStatic', 'dirTemplate', 'filepathServer', 'filepathMap', 'portHttp', 'filepathJinja2'];
+      if (protects.indexOf(key) >= 0) {
+        throw `${key} 是保护字段，不能被更改`;
+      }
+      return DataBus.set(key, value);
+    },
     get(key, defaultValue) { return DataBus.get(key, defaultValue); }
   };
 }
