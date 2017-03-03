@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <title>{{TopicName | default("云游道人现身！买买买！")}}</title>
-  <link rel="stylesheet" href="{{TopicResUrl}}/css/reset.css">
-  <link rel="stylesheet" href="{{TopicResUrl}}/css/index.css">
+  {% css "htdocs/css/reset.css" %}{% endcss %}
+  {% css "htdocs/css/index.css" %}{% endcss %}
   <script>
     // 根据窗口大小，修正字体，480px 对应字体 48px
     ;(function(){
@@ -117,7 +117,7 @@
     </div>
   </div>
 
-  <script src="{{TopicResUrl}}/js/native_call.js"></script>
+  <script src="{% uri "htdocs/js/native_call.js" %}"></script>
   <script>
     var TopicId = '{{TopicId}}';
   </script>
