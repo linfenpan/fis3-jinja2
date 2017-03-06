@@ -2,6 +2,7 @@
 const path = require('path');
 const server = require('./lib/server/index');
 const DataBus = require('./lib/util').dataBus;
+const deepAssign = require('deep-assign');
 
 module.exports = function fis3Jinja2(fis, options, serverConfig) {
   // 服务器配置
@@ -52,6 +53,7 @@ module.exports = function fis3Jinja2(fis, options, serverConfig) {
       var path = require('path')
       var root = fis.project.getProjectPath();
       var map = fis.file.wrap(path.join(root, mapjsonName));
+
       map.setContent(JSON.stringify(ret.map, null, map.optimizer ? null : 2));
       ret.pkg[map.subpath] = map;
     }

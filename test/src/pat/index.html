@@ -37,6 +37,15 @@
       resize();
     })();
   </script>
+
+  <script src="{% uri "/htdocs/js/require.js" %}"></script>
+  {% script "htdocs/js/index.js" %}{% endscript %}
+  {% script %}
+    require(["htdocs/js/index"], function(header) {
+      console.log('yes');
+      console.log(header);
+    });
+  {% endscript %}
 </head>
 <body>
 
@@ -117,11 +126,12 @@
     </div>
   </div>
 
-  <script src="{% uri "htdocs/js/native_call.js" %}"></script>
+  {% script "htdocs/js/native_call.js" %}{% endscript %}
   <script>
     var TopicId = '{{TopicId}}';
   </script>
   <script>
+    var ua = navigator.userAgent.toLowerCase();
     var $goldGate = document.querySelector('#goldGate');
     var is_iphone = /iphone|ipad|ipod/.test(ua);
     var dialog = {

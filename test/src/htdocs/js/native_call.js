@@ -1,3 +1,5 @@
+// @require /htdocs/js/base.js
+
 var ua = navigator.userAgent.toLowerCase();
 var is_iphone = ua.match(/iphone/i) == "iphone";
 
