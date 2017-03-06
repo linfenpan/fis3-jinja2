@@ -15,20 +15,12 @@ fis.match('/htdocs/**/(*.{js,css,less})', {
   // domain: 'http://cdn.cbg.163.com'
 });
 
-fis.match('/htdocs/**/require.js', {
-  isMod: false,
-  useHash: false
+fis.match('/htdocs/**/mod.js', {
+  isMod: false
 });
 
-// 配置首页
-// fis.match('/htdocs/js/({base,native_call}.js)', {
-//   packTo: '/htdocs/js/lib.js'
-// });
-
-console.log(fis.project.currentMedia());
 
 /************************* 下面这些内容，可以独立抽取为项目公用的配置 *************************/
-
 
 // 如果不是开发环境，给后端同学的 map.json，不太符合后端同学的需要，所以重写一下
 const deepAssign = require('deep-assign');
@@ -46,11 +38,11 @@ fis.match('::package', {
       if (item.pkg && pkg[item.pkg]) {
         item.uri = pkg[item.pkg].uri;
       }
-      // Object.keys(item).forEach(k => {
-      //   if (['uri', 'deps'].indexOf(k) < 0) {
-      //     delete item[k];
-      //   }
-      // });
+      Object.keys(item).forEach(k => {
+        if (['uri', 'deps'].indexOf(k) < 0) {
+          delete item[k];
+        }
+      });
     });
     delete result.pkg;
 

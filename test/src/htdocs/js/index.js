@@ -5,4 +5,4 @@ var base = require('htdocs/js/base');
 
 console.log('I am index');
 
-module.exports = 'something';
+module.exports = 'index return something';
