@@ -1,6 +1,6 @@
-// @require /htdocs/js/native_call.js
-// @require /htdocs/js/base.js
+// @require /htdocs/css/index.css
 
+var nativeCall = require('/htdocs/js/native_call.js');
 var base = require('htdocs/js/base');
 
 console.log('I am index');

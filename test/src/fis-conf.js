@@ -15,6 +15,10 @@ fis.match('/htdocs/**/(*.{js,css,less})', {
   // domain: 'http://cdn.cbg.163.com'
 });
 
+fis.match('/htdocs/js/{base,native_call}.js', {
+  packTo: '/htdocs/js/lib.js'
+});
+
 fis.match('/htdocs/**/mod.js', {
   isMod: false
 });
@@ -39,7 +43,7 @@ fis.match('::package', {
         item.uri = pkg[item.pkg].uri;
       }
       Object.keys(item).forEach(k => {
-        if (['uri', 'deps'].indexOf(k) < 0) {
+        if (['uri', 'deps', 'type'].indexOf(k) < 0) {
           delete item[k];
         }
       });
