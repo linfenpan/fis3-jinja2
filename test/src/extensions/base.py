@@ -8,7 +8,7 @@ from jinja2.ext import Extension
 # 创建一个自定义拓展类，继承 jinja2.ext.Extension
 class BaseExtension(Extension):
   # 定义该拓展的语句关键字，这里表示模版中的 {% uri "参数" %} 语句
-  tags = set(["uri"])
+  # tags = set(["uri"])
 
   def __init__(self, environment):
     # 初始化父类，必须这样写
@@ -19,6 +19,3 @@ class BaseExtension(Extension):
   
   def reset(self):
     return None
-
-  
-  

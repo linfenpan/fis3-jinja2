@@ -55,36 +55,33 @@ class UriExtension(BaseExtension):
       body = ''
 
       # 返回一个 CallBlock类型的节点，并将其之前取得的行号，设置在该节点中
-      # 初始化 CallBlock 节点时，传入我们自定义的 _do_query_resource 方法的调用，两个空列表，以及刚才解析后的语句内容 body
-      return nodes.CallBlock(self.call_method('_do_query_resource', args), [], [], body).set_lineno(lineno)
+      # 初始化 CallBlock 节点时，传入我们自定义的 _do_query_uri 方法的调用，两个空列表，以及刚才解析后的语句内容 body
+      return nodes.CallBlock(self.call_method('_do_query_uri', args), [], [], body).set_lineno(lineno)
   
   # 查找资源
-  def _do_query_resource(self, resource_name, caller):
+  def _do_query_uri(self, uri, caller):
     # 获取 {% uri %}...{% enduri %} 语句中的内容
     # 这里 caller() 对应上面调用 CallBlock 时传入的 body
     # content = caller()
 
-    return self.query_resource(resource_name)
+    return self.query_uri(uri)
   
   # 查找资源链接
-  def query_resource(self, resource_name):
-    obj = self.query_object(resource_name)
+  def query_uri(self, uri):
+    obj = self.query_resource(uri)
     if obj != None:
       return obj['uri']
     else:
-      return resource_name
+      return uri
   
   # 查找资源对象对象
-  def query_object(self, url):
-    # 在 uri_dist 中，查找资源正确的名称
-    if url.startswith('/'):
-      url = url[1:]
+  def query_resource(self, uri):
     # 删除资源的前缀斜杠
     replace_reg = re.compile(r'^/*')
-    url = replace_reg.sub('', url)
+    uri = replace_reg.sub('', uri)
     
-    if url in self.environment.uri_dist:
-      obj = self.environment.uri_dist[url]
+    if uri in self.environment.uri_dist:
+      obj = self.environment.uri_dist[uri]
       return obj
     else:
       return None

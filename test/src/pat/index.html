@@ -6,15 +6,16 @@
   <title>{{TopicName | default("云游道人现身！买买买！")}}</title>
   <script src="{% uri "/htdocs/js/mod.js" %}"></script>
 
-  {% css "htdocs/css/reset.css" %}{% endcss %}
-  {% css "htdocs/css/index.css" %}{% endcss %}
+  {% require "htdocs/css/reset.css" %}
+  {% require "htdocs/js/index.js" %}
 
-  {% script "htdocs/js/index.js" %}{% endscript %}
   {% script %}
-    require(["htdocs/js/index"], function(header) {
+    /* 已经加载过的元素，禁止再通过 require 加载
+    require(["htdocs/js/index.js"], function(header) {
       console.log('Hi, success require');
       console.log(header);
     });
+    */
   {% endscript %}
 </head>
 <body>
@@ -24,7 +25,7 @@
      凭借兜售全世界奇珍异宝而拥有超高人气的云游道人终于现身了！！少侠可在2月14日至2月28日带上金币到长寿村120.62、傲来国106，110、长安478，130（每小时随机择一场景出现）找到云游道人抢购奇珍异宝！宝贝数量有限，错过就是过错！
   </div>
 
-  {% script "htdocs/js/native_call.js" %}{% endscript %}
+  {% require "htdocs/js/native_call.js" %}
   <script>
     console.log('这段应该在控制台的第一行');
 
@@ -32,6 +33,7 @@
     require.resourceMap(__RESOURCE_MAP__);
     require.async('htdocs/js/async', function(r) {
       console.log('异步测试正常', r);
+      console.log(require('htdocs/js/index.js'))
     });
   </script>
 </body>

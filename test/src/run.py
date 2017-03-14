@@ -10,15 +10,17 @@ sys.setdefaultencoding('utf-8')
 
 # 本地文件
 from extensions.uri import UriExtension
-from extensions.css import CssExtension
+from extensions.require import RequireExtension
 from extensions.script import ScriptExtension
+from extensions.style import StyleExtension
+
 
 paths = ${paths};
 env = Environment(
   loader = FileSystemLoader(paths, encoding = 'utf-8'),
   cache_size = -1,
   autoescape = False,
-  extensions=[UriExtension, CssExtension, ScriptExtension]
+  extensions = [UriExtension, RequireExtension, ScriptExtension, StyleExtension]
 )
 
 dataStr = '{}'
@@ -47,17 +49,15 @@ env.uri.set_dist(dist_resource['res'])
 
 # 模板绑定部分，与 node.js 通讯，请保持 print 的输出
 def __render(tmp, map):
-  env.uri.ready()
-  env.css.ready()
-  env.script.ready()
+  env.require.ready()
 
   result = tmp.render(**map)
-  result = result.replace('</head>', env.css.build_css() + '\n</head>')
-  result = result.replace('</body>', env.script.build_script() + '\n</body>')
+  
+  obj = env.require.build()
+  result = result.replace('</head>', obj.get('style', '') + '\n</head>')
+  result = result.replace('</body>', obj.get('script', '') + '\n</body>')
 
-  env.uri.reset()
-  env.css.reset()
-  env.script.reset()
+  env.require.reset()
 
   print 'START=============@@@=============START'
   print result
