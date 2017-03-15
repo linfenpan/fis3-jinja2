@@ -10,12 +10,11 @@
   {% require "htdocs/js/index.js" %}
 
   {% script %}
-    /* 已经加载过的元素，禁止再通过 require 加载
+    /* 已经加载过的元素，禁止再通过 require 加载 */
     require(["htdocs/js/index.js"], function(header) {
       console.log('Hi, success require');
       console.log(header);
     });
-    */
   {% endscript %}
 </head>
 <body>
@@ -29,12 +28,15 @@
   <script>
     console.log('这段应该在控制台的第一行');
 
+    /*
     // 异步测试，必须配合 resourceMap 使用
-    require.resourceMap(__RESOURCE_MAP__);
-    require.async('htdocs/js/async', function(r) {
-      console.log('异步测试正常', r);
-      console.log(require('htdocs/js/index.js'))
-    });
+    // @notice 但是禁止使用！！！因为它的设计，都是不科学的!!!!
+    // require.resourceMap(__RESOURCE_MAP__);
+    // require.async('htdocs/js/async', function(r) {
+    //   console.log('异步测试正常', r);
+    //   console.log(require('htdocs/js/index.js'))
+    // });
+    */
   </script>
 </body>
 </html>
