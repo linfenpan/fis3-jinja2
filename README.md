@@ -121,3 +121,7 @@ fisJ 对方暴露了以下几个方法:
 进入 test/src 目录，运行命令: ```fis3 release -d ../dest -w```
 
 访问浏览器: http://localhost:8080 查看效果
+
+
+# 修复日志
+  * 2017/03/16 修复jinja2模板，寻址路径问题

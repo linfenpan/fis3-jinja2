@@ -24,12 +24,14 @@ fis.match('/htdocs/**/mod.js', {
 });
 
 // 组件部分
+fis.match('/widget/**.html', {
+  release: '/pat/$0'
+});
 fis.match('/widget/**.js', {
   isMod: true,
   release: '/htdocs/$0'
 });
 fis.match('/widget/**.css', {
-  isMod: true,
   release: '/htdocs/$0'
 });
 
