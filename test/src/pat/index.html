@@ -1,33 +1,56 @@
+{# 组件的 macro #}
+{% macro widget (name = "", css = False, js = False) -%}
+  {% if css %}
+    {% require name|replace(".html", ".css") %}
+  {% endif %}
+  {% if name %}
+    {% include name ignore missing with context %}
+  {% endif %}
+  {% if js %}
+    {% require name|replace(".html", ".js") %}
+  {% endif %}
+{%- endmacro %}
+
 <!DOCTYPE html>
 <html style="font-size: 40px;">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-  <title>{{TopicName | default("云游道人现身！买买买！")}}</title>
+  <title>{{title}}</title>
   <script src="{% uri "/htdocs/js/mod.js" %}"></script>
 
   {% require "htdocs/css/reset.css" %}
   {% require "htdocs/js/index.js" %}
 
   {% script %}
-    /* 已经加载过的元素，禁止再通过 require 加载 */
+    /* 这段代码，会自动放到 body 结束标签前面 */
+    /* 只能使用已经加载完成的板块 */
     require(["htdocs/js/index.js"], function(header) {
       console.log('Hi, success require');
       console.log(header);
     });
   {% endscript %}
 </head>
+
 <body>
+  {# 引入 header 组件，并且调用它的初始化 #}
+  {{ widget(name = "widget/header/header.html", js = True, css = True) }}
+  {% script %}
+    /* 严格遵循，最前面的斜杠是要不得的!!! 不过后缀可以省略 */
+    require(['widget/header/header'], function(header) {
+      header.init();
+    });
+  {% endscript %}
 
-  <h1 id="banner">云游道人现身</h1>
-  <div id="introduce">
-     凭借兜售全世界奇珍异宝而拥有超高人气的云游道人终于现身了！！少侠可在2月14日至2月28日带上金币到长寿村120.62、傲来国106，110、长安478，130（每小时随机择一场景出现）找到云游道人抢购奇珍异宝！宝贝数量有限，错过就是过错！
+  <div class="content">
+    {{ content }}
   </div>
+  {% style %}
+    /* 通过 style 标签生成的内容，自动提到 head 元素里 */
+    .content { padding: 20px; font-weight: bold; }
+  {% endstyle %}
 
-  {% require "htdocs/js/native_call.js" %}
   <script>
-    console.log('这段应该在控制台的第一行');
-
     /*
     // 异步测试，必须配合 resourceMap 使用
     // @notice 但是禁止使用！！！因为它的设计，都是不科学的!!!!

@@ -1,6 +1,8 @@
 # 注释
 GET / /index.html
-GET /index2 /index.html /data/index.js
+GET /child /second/child.html
+
+GET /index2 /index.html /data/index2.js
 GET /index3 /index.html /data/index3.json
 
 # json 数据

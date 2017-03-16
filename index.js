@@ -2,7 +2,6 @@
 const path = require('path');
 const server = require('./lib/server/index');
 const DataBus = require('./lib/util').dataBus;
-const deepAssign = require('deep-assign');
 
 module.exports = function fis3Jinja2(fis, options, serverConfig) {
   // 服务器配置
@@ -68,7 +67,6 @@ module.exports = function fis3Jinja2(fis, options, serverConfig) {
   // compile 每个文件都会触发，但是 release 仅在编译结束之后触发
   // release 在编译结束，会触发一次
   fis.once('release:end', function() {
-    console.log('进入一次');
     process.nextTick(() => {
       if (serverConfig.open) {
         DataBus.set('dir', dirTarget);
@@ -87,10 +85,12 @@ module.exports = function fis3Jinja2(fis, options, serverConfig) {
 
       // 重新加载
       fis.on('release:end', () => {
-        server.reload();
+        process.nextTick(() => {
+          server.reload();
+        });
       });
-    });
 
+    });
   });
 
   return {

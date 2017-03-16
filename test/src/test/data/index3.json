@@ -1,5 +1,4 @@
 {
-  "TopicId": "10",
-  "TopicResUrl": "/htdocs",
-  "ResUrlVer": ""
+  "title": "index3",
+  "content": "也可以读取json文件"
 }

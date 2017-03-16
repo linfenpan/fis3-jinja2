@@ -1,3 +1,3 @@
 console.log('I am base');
 
-module.exports = 'base';
+module.exports = 'base.js';

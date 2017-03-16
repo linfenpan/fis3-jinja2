@@ -15,12 +15,22 @@ fis.match('/htdocs/**/(*.{js,css,less})', {
   // domain: 'http://cdn.cbg.163.com'
 });
 
-fis.match('/htdocs/js/{base,native_call}.js', {
+fis.match('/htdocs/js/{native_call,base}.js', {
   packTo: '/htdocs/js/lib.js'
 });
 
 fis.match('/htdocs/**/mod.js', {
   isMod: false
+});
+
+// 组件部分
+fis.match('/widget/**.js', {
+  isMod: true,
+  release: '/htdocs/$0'
+});
+fis.match('/widget/**.css', {
+  isMod: true,
+  release: '/htdocs/$0'
 });
 
 
