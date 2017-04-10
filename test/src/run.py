@@ -52,7 +52,7 @@ def __render(tmp, map):
   env.require.ready()
 
   result = tmp.render(**map)
-  
+
   obj = env.require.build()
   result = result.replace('</head>', obj.get('style', '') + '\n</head>')
   result = result.replace('</body>', obj.get('script', '') + '\n</body>')
@@ -60,7 +60,7 @@ def __render(tmp, map):
   env.require.reset()
 
   print 'START=============@@@=============START'
-  print result
+  print result, u'${author}'
   print 'END=============@@@=============END'
 
 template = env.get_template('${nameTemplate}')

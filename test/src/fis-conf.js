@@ -6,7 +6,11 @@ fis.hook('commonjs');
 const JJ = require('../../index')(fis, {
   template: '/pat',
   static: '/htdocs',
-  jinja2: '/run.py'
+  staticDir: '/htdocs',
+  jinja2: '/run.py',
+  jinja2Opts: {
+    author: 'da宗熊'
+  }
 });
 
 fis.match('/htdocs/**/(*.{js,css,less})', {

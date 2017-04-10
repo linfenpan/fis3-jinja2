@@ -15,10 +15,12 @@
   const fisJ = require('fis3-jinja2')(fis, {
     'namespace': '', // 目标目录，生成 map.json 的前缀名字
     'static': '/static', // fis3 release 后，静态资源目录，用于初始化 express 的静态资源访问路径，所有需要静态访问的资源，都应该放于此目录
+    'staticDir': '', //  fis3 release 后，静态资源目录，默认为空，去 static 相同的值，如果不为空，则代替 static 的值，指向真实的路径
     'template': '/template', // fis3 release 后，jinja2 模板所在的目录
     'server': '/server.cf', // fis3 release 后，jinja2 的服务器配置文件
     'data': '/test', // fis3 release 后，jinja2 读取模拟数据的目录
-    'jinja2': ''  // fi3 release 后，jinja2 读取渲染模板的 .py 文件，如果没有设置，会使用默认的渲染文件
+    'jinja2': '',  // fi3 release 后，jinja2 读取渲染模板的 .py 文件，如果没有设置，会使用默认的渲染文件
+    'jinja2Opts': {}, // fis3 jinja2 运行模板的额外参数，默认参数: paths: '[模板的绝对目录地址]', nameTemplate: 模版名字, dataFilepath: '临时数据文件的路径'
   }, {
     port: 8080, // express 的端口号
     open: fis.project.currentMedia() === 'dev' // 是否启动 express
@@ -124,4 +126,5 @@ fisJ 对方暴露了以下几个方法:
 
 
 # 修复日志
-  * 2017/03/16 修复jinja2模板，寻址路径问题。把 fis3 依赖包，移到开发环境。
+  * 2017/04/10|0.0.5 添加 static 服务相关参数，添加 jinja2 运行文件额外参数配置
+  * 2017/03/16|0.0.3 修复jinja2模板，寻址路径问题。把 fis3 依赖包，移到开发环境。

@@ -18,11 +18,16 @@ module.exports = function fis3Jinja2(fis, options, serverConfig) {
 
   const sets = Object.assign({
     'namespace': '',
+    // static 是 express 访问静态资源的路径
     'static': '/static',
+    // staticDir 是静态资源的实际路径，如果为空，则代表与 static 保持一致
+    'staticDir': '',
     'template': '/template',
     'server': '/server.cf',
     'data': '/test',
-    'jinja2': ''
+    'jinja2': '',
+    // jinja2 模板的额外参数
+    'jinja2Opts': {}
   }, options || {});
   DataBus.set('fisOptions', sets);
 
@@ -71,7 +76,7 @@ module.exports = function fis3Jinja2(fis, options, serverConfig) {
       if (serverConfig.open) {
         DataBus.set('dir', dirTarget);
         DataBus.set('dirData', path.resolve(dirTarget, './' + fis.get('data')));
-        DataBus.set('dirStatic', path.resolve(dirTarget, './' + fis.get('static')));
+        DataBus.set('dirStatic', path.resolve( dirTarget, './' + (fis.get('staticDir') || fis.get('static')) ) );
         DataBus.set('dirTemplate', path.resolve(dirTarget, './' + fis.get('template')));
         DataBus.set('filepathServer', path.resolve(dirTarget, './' + sets.server));
         DataBus.set('filepathMap', path.resolve(dirTarget, mapjsonName));
